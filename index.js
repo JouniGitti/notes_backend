@@ -32,6 +32,10 @@ app.get('/', (request, response) => {
     response.send('<h2>Hello World from Finland!</h2>')
 })
 
+app.get('/api/notes', (req, res) => {
+    res.json(notes)
+})
+
 app.get('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     const note = notes.find(note => note.id === id )
