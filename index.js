@@ -49,12 +49,6 @@ app.delete('/api/notes/:id', (request, response, next) => {
 
 app.post('/api/notes', (request, response, next) =>{
     const body = request.body
-    // if (body.content === undefined) {
-    //     return response.status(400).json({
-    //         error: 'content missing'
-    //     })
-    // }
-    // Now validation handled with mongoose in note.js model
     const note = new Note ({
         content: body.content,
         important: body.important || false,
@@ -90,7 +84,7 @@ app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
-    if (error.name === 'CastError' && error.kind == 'ObjectId') {
+    if (error.name === 'CastError' && error.kind === 'ObjectId') {
         return response.status(400).send({ error: 'malformatted id' })
     } else if (error.name === 'ValidationError') {
         return response.status(400).json({ error: error.message})
